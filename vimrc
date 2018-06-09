@@ -61,7 +61,7 @@ inoremap jj <Esc> "jjでESC
 ""表示行単位で移動
 nnoremap j gj
 nnoremap k gk
-nnoremap <S-Up>v<Up>
+nnoremap <S-Up> v<Up>
 " ctrl + A, E, K, D, H
 imap <C-a> <esc>I
 imap <C-e> <esc>E
