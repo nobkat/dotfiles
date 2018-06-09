@@ -64,7 +64,7 @@ nnoremap k gk
 nnoremap <S-Up> v<Up>
 " ctrl + A, E, K, D, H
 imap <C-a> <esc>I
-imap <C-e> <esc>E
+imap <C-e> <esc>A
 imap <C-k> <esc>lDA
 imap <C-d> <delete>
 imap <C-h> <backspace>
