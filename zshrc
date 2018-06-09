@@ -126,3 +126,11 @@ alias -g W='| wc'
 #function cd() {
 #  builtin cd $@ && ls;
 #}
+
+export PATH=/usr/local/Cellar/yarn/1.6.0/bin:$HOME/.nodebrew/current/bin:$PATH
+
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+eval "$(pyenv init -)"
+

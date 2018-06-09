@@ -61,7 +61,13 @@ inoremap jj <Esc> "jjでESC
 ""表示行単位で移動
 nnoremap j gj
 nnoremap k gk
-nnoremap <S-Up> v<Up>
+nnoremap <S-Up>v<Up>
+" ctrl + A, E, K, D, H
+imap <C-a> <esc>I
+imap <C-e> <esc>E
+imap <C-k> <esc>lDA
+imap <C-d> <delete>
+imap <C-h> <backspace>
 " Shift + 矢印で visual modeがはじまる
 nnoremap <S-Down> v<Down>
 nnoremap <S-Left> v<Left>
