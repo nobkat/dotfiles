@@ -35,6 +35,7 @@ set wildmode=list:full
 set history=1000 "コマンド・検索パターンの履歴
 set complete+=k "補完に辞書ファイル追加
 set list "不可視文字の表示
+highlight link EndOfBuffer Ignore
 set listchars=trail:~,extends:>,precedes:<,nbsp:_,tab:▸\ 
 set scrolloff=5 "カーソルの上または下に表示する最小限の行数。 
 set whichwrap=b,s,h,l,<,>,[,] "カーソルを行頭，行末で止まらないようにする。
