@@ -4,7 +4,7 @@ sudo apt update
 sudo apt install vim curl ssh git -y
 
 # install tmux
-sudo apt remove tmuxa
+sudo apt remove tmux
 sudo apt -y install build-essential libevent-dev libncurses5-dev
 mkdir ~/tmux
 cd ~/tmux
