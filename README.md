@@ -1,4 +1,4 @@
-# Instration
+# Installation
 
 !!! dont use setup.sh
 
@@ -23,7 +23,8 @@ update dotefile
 ```
 $ cd dotfiles
 $ vim .vimrc    # for example ...
-$ git add .vimrc -m "update .vimrc"
+$ git add .vimrc
+$ git commit -m "update .vimrc"
 $ git push
 ```
 
