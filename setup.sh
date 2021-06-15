@@ -14,7 +14,7 @@ cd tmux-2.8/
 ./configure && make
 sudo cp -p ~/tmux/tmux-2.8/tmux /usr/local/sbin/
 
-# key
+# copy pubkey to login
 mkdir -p $HOME/.ssh
 cd $HOME/.ssh
 cat <<EOF >> authorized_keys
@@ -22,6 +22,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTY//OSlDR2Fqvtprlf2jAeiqL2Bzr2Ny19tmGySYE
 EOF
 chmod 600 authorized_keys
 
+# make symbolic linkes
 cd $(dirname $0)
 sh install_dotfile.sh
 

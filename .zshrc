@@ -1,7 +1,9 @@
-PROMPT='
-%F{blue}%B%n@%m%f%F{green}%d%f
+PROMPT='%F{blue}%B%n@%m%f%F{green}%d%f
 %# %b'
 
+# 補完機能
+autoload -U compinit
+compinit
 
 # cd -<tab>で以前移動したディレクトリを表示
 setopt auto_pushd
@@ -46,3 +48,6 @@ setopt correct
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
