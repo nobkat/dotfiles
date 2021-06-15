@@ -1,7 +1,9 @@
-PROMPT='
-%F{blue}%B%n@%m%f%F{green}%d%f
+PROMPT='%F{blue}%B%n@%m%f%F{green}%d%f
 %# %b'
 
+# 補完機能
+autoload -U compinit
+compinit -u
 
 # cd -<tab>で以前移動したディレクトリを表示
 setopt auto_pushd
@@ -42,7 +44,17 @@ alias ll="ls -lh"
 # 入力を間違えたときの似たコマンド表示
 setopt correct
 
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/katayama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/katayama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/completion.zsh.inc'; fi
+
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
