@@ -57,4 +57,11 @@ if [ -f '/Users/katayama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+<<<<<<< HEAD
 eval "$(pyenv init --path)"
+=======
+eval "$(pyenv init -)"
+
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+>>>>>>> da8cebba437251d5029a1aba7063d0822f419edc
