@@ -7,7 +7,7 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = Noboru Katayama
+	name = nobkat
 	email = katayama@rs.tus.ac.jp
 [filter "lfs"]
 	process = git-lfs filter-process
@@ -16,3 +16,5 @@
 	smudge = git-lfs smudge -- %f
 [alias]
     graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+[init]
+	defaultBranch = main

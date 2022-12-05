@@ -1,6 +1,3 @@
-PROMPT='%F{blue}%B%n@%m%f%F{green}%d%f
-%# %b'
-
 # 補完機能
 autoload -U compinit
 compinit -u
@@ -12,6 +9,9 @@ setopt auto_pushd
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
+
+# ディレクトリ名だけで移動
+setopt AUTO_CD
 
 # 同時に起動したzshの間でヒストリを共有する
 setopt share_history
@@ -44,24 +44,51 @@ alias ll="ls -lh"
 # 入力を間違えたときの似たコマンド表示
 setopt correct
 
-export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/katayama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/katayama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/completion.zsh.inc'; fi
 
-
-# pyenv
+# pyenv setting
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-<<<<<<< HEAD
+export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init --path)"
-=======
 eval "$(pyenv init -)"
 
-export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
->>>>>>> da8cebba437251d5029a1aba7063d0822f419edc
+# pipenv installs packages in the project dir
+export PIPENV_VENV_IN_PROJECT=1
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
+
+case ${OSTYPE} in
+    darwin*)
+        if (( $+commands[arch] )); then
+            alias x64='exec arch -arch x86_64 "$SHELL"'
+            alias a64='exec arch -arch arm64e "$SHELL"'
+        fi
+        ;;
+esac
+
+export ARCH=`uname -m`
+
+# プロンプト
+RPROMPT='%F{cyan}%D %*'
+PROMPT='%F{blue}%B%n@%m%f%F{black}:%F{green}%d%f
+%# %b'
+
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
