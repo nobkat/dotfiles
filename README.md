@@ -7,6 +7,7 @@ install dotfile
 
 ```
 $ git clone https://github.com/nobkat/dotfiles.git
+$ cd dotfiles
 $ sh install_dotfile.sh
 ```
 
