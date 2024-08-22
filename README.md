@@ -1,31 +1,39 @@
 # Installation
 
-!!! dont use setup.sh
+!!! DO NOT use setup.sh
 
+## How to setup linux environment 
 
-install dotfile
-
+```shell
+sh install.sh
 ```
-$ git clone git@github.com:nobkat/dotfiles.git
-$ sh install_dotfile.sh
+
+
+## How to install dotfiles
+
+```shell
+git clone git@github.com:nobkat/dotfiles.git
+sh install_dotfile.sh
 ```
 
 if you get error in git clone try
+
+```shell
+cd .ssh
+ssh-keygen -t rsa
+cat id_rsa.pub
 ```
-$ cd .ssh
-$ ssh-keygen -t rsa
-$ cat id_rsa.pub
-```
+
 copy key to https://github.com/settings/ssh
 
-update dotefile
+## How to update dotefiles
 
-```
-$ cd dotfiles
-$ vim .vimrc    # for example ...
-$ git add .vimrc
-$ git commit -m "update .vimrc"
-$ git push
+```shell
+cd dotfiles
+vim .vimrc    # for example ...
+git add .vimrc
+git commit -m "update .vimrc"
+git push
 ```
 
 

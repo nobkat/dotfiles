@@ -50,19 +50,6 @@ if [ -f '/Users/katayama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kataya
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/katayama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/completion.zsh.inc'; fi
 
-# pyenv setting
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
-# pipenv installs packages in the project dir
-export PIPENV_VENV_IN_PROJECT=1
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
@@ -84,11 +71,16 @@ RPROMPT='%F{cyan}%D %*'
 PROMPT='%F{blue}%B%n@%m%f%F{black}:%F{green}%d%f
 %# %b'
 
-
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+# pipenv installs packages in the project dir
+export PIPENV_VENV_IN_PROJECT=1
+
+# python REPL startup
+alias pr='PYTHONSTARTUP=~/.pythonstartup python'
+
 # nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
