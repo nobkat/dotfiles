@@ -85,7 +85,3 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 
-# tmux
-if [ -z ${TMUX} ]; then
-    tmux new-session -A -s default
-fi
