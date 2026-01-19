@@ -34,8 +34,6 @@ bindkey '^S' history-incremental-search-forward
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
-# ディレクトリの履歴保存 cd -<TAB>
-setopt auto_pushd
 
 alias ls="ls -G"
 alias la="ls -a"
@@ -73,15 +71,16 @@ PROMPT='%F{blue}%B%n@%m%f%F{black}:%F{green}%d%f
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-# pipenv installs packages in the project dir
-export PIPENV_VENV_IN_PROJECT=1
-
 # python REPL startup
 alias pr='PYTHONSTARTUP=~/.pythonstartup python'
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
+NVMRC_PATH=".nvmrc"
+if [[ -a "$NVMRC_FILE" ]]; then
+	nvm use
+fi
+export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
 
