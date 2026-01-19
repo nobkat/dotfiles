@@ -16,6 +16,14 @@ if you want to install other tools, run
 dotfiles/install_env.sh
 ```
 
+if you want to use zsh as your default shell, run
+
+```shell
+sudo apt install zsh -y
+chsh -s $(which zsh)
+```
+
+
 ## How to update dotefiles
 
 ```shell
@@ -25,9 +33,3 @@ git add .vimrc
 git commit -m "update .vimrc"
 git push
 ```
-
-
-
-
-
-
