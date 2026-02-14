@@ -146,3 +146,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # python REPL startup
 alias pr='PYTHONSTARTUP=~/.pythonstartup python'
 
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
