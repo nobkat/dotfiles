@@ -7,7 +7,7 @@
 
 ```shell
 apt install git
-git clone https://github.com/nobkat/dotfiles.git && dotfiles/install.sh
+git clone https://github.com/nobkat/dotfiles.git && dotfiles/install_dotfiles.sh
 ```
 
 if you want to install other tools, run

@@ -1,7 +1,3 @@
-# 補完機能
-autoload -U compinit
-compinit -u
-
 # cd -<tab>で以前移動したディレクトリを表示
 setopt auto_pushd
 
@@ -35,22 +31,31 @@ bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
 
-alias ls="ls -G"
 alias la="ls -a"
 alias ll="ls -lh"
 
 # 入力を間違えたときの似たコマンド表示
 setopt correct
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/katayama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/katayama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/katayama/google-cloud-sdk/completion.zsh.inc'; fi
-
-
+# コマンドの補完
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+
+# タイプミスのディレクトリ名を補正
+setopt correct_all
+
+# ビープ音を消す
+setopt no_beep
+
+# globの拡張（**, ~ など）
+setopt extended_glob
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
 
 
 case ${OSTYPE} in
@@ -58,29 +63,86 @@ case ${OSTYPE} in
         if (( $+commands[arch] )); then
             alias x64='exec arch -arch x86_64 "$SHELL"'
             alias a64='exec arch -arch arm64e "$SHELL"'
+            alias ls="ls -G"
         fi
+        export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+        export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
         ;;
+    linux*)
+        alias ls="ls --color=auto"
+        ;;
+
+
 esac
 
+# ホスト名を表示
 export ARCH=`uname -m`
 
 # プロンプト
-RPROMPT='%F{cyan}%D %*'
-PROMPT='%F{blue}%B%n@%m%f%F{black}:%F{green}%d%f
-%# %b'
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' formats '%F{yellow}(%b)%f'
+setopt PROMPT_SUBST
+
+# ハッシュ値からHSLベースでRGB色を計算する関数
+_hash_color() {
+    local input=$1
+    local hash=$(echo -n "$input" | cksum | cut -d' ' -f1)
+
+    # 色相: 0-359 をハッシュから決定（色のバリエーション）
+    local hue=$(( hash % 360 ))
+    # 彩度: 60-95% の範囲（鮮やかさ）
+    local sat=$(( 60 + (hash / 360) % 36 ))
+    # 明度: 55-75% の範囲（暗い背景でも明るい背景でも見やすい）
+    local lit=$(( 55 + (hash / 12960) % 21 ))
+
+    # HSL → RGB 変換（整数演算、精度x1000）
+    local s=$((sat * 1000 / 100))
+    local l=$((lit * 1000 / 100))
+    local c=$(( (1000 - ${${:-$((2 * l - 1000))}#-}) * s / 1000 ))
+    local h=$(( hue * 1000 / 60 ))
+    local x_mod=$(( h % 2000 - 1000 ))
+    local x=$(( c * (1000 - ${x_mod#-}) / 1000 ))
+    local m=$(( l - c / 2 ))
+
+    local r g b
+    if (( hue < 60 )); then
+        r=$((c + m)) g=$((x + m)) b=$m
+    elif (( hue < 120 )); then
+        r=$((x + m)) g=$((c + m)) b=$m
+    elif (( hue < 180 )); then
+        r=$m g=$((c + m)) b=$((x + m))
+    elif (( hue < 240 )); then
+        r=$m g=$((x + m)) b=$((c + m))
+    elif (( hue < 300 )); then
+        r=$((x + m)) g=$m b=$((c + m))
+    else
+        r=$((c + m)) g=$m b=$((x + m))
+    fi
+
+    # 0-1000 → 0-255
+    r=$(( r * 255 / 1000 ))
+    g=$(( g * 255 / 1000 ))
+    b=$(( b * 255 / 1000 ))
+
+    printf '#%02X%02X%02X' $r $g $b
+}
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' formats '%F{yellow}(%b)%f'
+setopt PROMPT_SUBST
+
+precmd() {
+    vcs_info
+    local user_color=$(_hash_color "$USER")
+    local host_color=$(_hash_color "$(hostname)")
+    print -P "%F{cyan}%D{%Y-%m-%d %H:%M:%S}%f %F{${user_color}}%B%n%b%f%F{black}@%F{${host_color}}%B%m%b%f%F{black}:%F{green}%d%f ${vcs_info_msg_0_}"
+}
+
+PROMPT='%# %b'
+
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # python REPL startup
 alias pr='PYTHONSTARTUP=~/.pythonstartup python'
-
-# nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-NVMRC_PATH=".nvmrc"
-if [[ -a "$NVMRC_FILE" ]]; then
-	nvm use
-fi
-export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
-export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
 
