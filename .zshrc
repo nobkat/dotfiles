@@ -148,3 +148,11 @@ alias pr='PYTHONSTARTUP=~/.pythonstartup python'
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+
+if [ -d "$NVM_DIR" ]; then
+  [ -r "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -r "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+fi
