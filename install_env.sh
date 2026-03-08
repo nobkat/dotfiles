@@ -1,7 +1,19 @@
 #!/bin/sh
 
-sudo apt update
-sudo apt install vim curl ssh git -y
+# Detect OS
+OS="$(uname -s)"
+
+if [ "$OS" = "Darwin" ]; then
+  # macOS
+  brew install vim curl git direnv
+elif [ "$OS" = "Linux" ]; then
+  # Linux
+  sudo apt update
+  sudo apt install vim curl ssh git direnv -y
+else
+  echo "Unsupported OS: $OS"
+  exit 1
+fi
 
 # install tmux
 sudo apt remove tmux

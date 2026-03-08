@@ -148,6 +148,9 @@ alias pr='PYTHONSTARTUP=~/.pythonstartup python'
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
+# direnv
+eval "$(direnv hook zsh)"
+
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
