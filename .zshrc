@@ -159,3 +159,10 @@ if [ -d "$NVM_DIR" ]; then
   [ -r "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
   [ -r "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 fi
+
+# oh-my-zsh 
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+plugins=(per-directory-history)
+

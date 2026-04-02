@@ -26,6 +26,11 @@ cd tmux-2.8/
 ./configure && make
 sudo cp -p ~/tmux/tmux-2.8/tmux /usr/local/sbin/
 
+# install oh-my-zsh
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
 # copy pubkey to login
 mkdir -p $HOME/.ssh
 cd $HOME/.ssh
