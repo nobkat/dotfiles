@@ -162,7 +162,9 @@ fi
 
 # oh-my-zsh 
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+plugins=(per-directory-history)
+
 source $ZSH/oh-my-zsh.sh
 
-plugins=(per-directory-history)
 
